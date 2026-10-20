@@ -37,7 +37,9 @@ SAMPLE_RATE: int = 44100
 #: ``M1..M5`` and ``F1..F5`` ‑‑ the plan front-matter narrows the public
 #: surface to 7 voices for the UI engine card; the SDK still accepts any
 #: of the 10 if a caller forwards one explicitly.
-VOICE_PRESETS: list[str] = ["M1", "M3", "M4", "M5", "F3", "F4", "F5"]
+# LOCAL PATCH (D:\VoiceStudio): expose all 10 SDK voices (M2/F1/F2 ship in
+# voice_styles/ of the pinned weights). Backup: D:\VoiceStudioData\constants.py.bak-7vozes
+VOICE_PRESETS: list[str] = ["M1", "M2", "M3", "M4", "M5", "F1", "F2", "F3", "F4", "F5"]
 
 #: Default voice if the caller omits one or passes an unknown id.
 DEFAULT_VOICE: str = "M1"

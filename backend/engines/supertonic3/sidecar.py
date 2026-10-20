@@ -304,6 +304,12 @@ def _handle_synthesize(msg: dict, stdout) -> None:
     # to ``DEFAULT_VOICE``, so this is defence in depth.
     style = tts.get_voice_style(voice_name=voice)
 
+    # LOCAL PATCH (D:\VoiceStudio): optional deterministic sampling. The SDK
+    # draws its initial latent noise from numpy's global RNG.
+    if msg.get("seed") is not None:
+        import numpy as _np
+        _np.random.seed(int(msg["seed"]) % (2 ** 32))
+
     # The SDK returns ``(wav_np, duration_np)``; we only need the audio.
     wav, _duration = tts.synthesize(
         text=text,

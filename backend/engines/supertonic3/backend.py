@@ -234,6 +234,11 @@ class Supertonic3Backend(SubprocessBackend):
             "speed": speed,
             "total_steps": total_steps,
         }
+        # LOCAL PATCH (D:\VoiceStudio): forward an explicit seed so the
+        # sidecar can seed numpy's global RNG (the SDK's initial noise comes
+        # from np.random.randn) -> reproducible takes via the API's `seed`.
+        if kw.get("seed") is not None:
+            forwarded["seed"] = int(kw["seed"])
         return super().generate(text, **forwarded)
 
 
